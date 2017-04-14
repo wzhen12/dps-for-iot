@@ -18,7 +18,7 @@ SRC_URI = "git://github.com/01org/dps-for-iot.git;name=dps \
            "
 inherit scons
 
-DEPENDS = "libuv nodejs"
+DEPENDS = "libuv nodejs python-scons-native python"
 
 INSANE_SKIP_${PN} += " ldflags"
 INSANE_SKIP_${PN}-dev += "ldflags"
