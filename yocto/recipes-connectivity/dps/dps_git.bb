@@ -5,14 +5,14 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=048191255019d4e1ee70aef53dbbec10"
 
 S = "${WORKDIR}/git"
-SRCREV_dps = "d2a7ffac13192df94f0dd860a88bec3471d4a7ec"
+SRCREV_dps = "b9abc0da78e740732b394176d4c63e332fad7ffe"
 SRCREV_tinycrypt = "e6cffb820b91578d9816fc0bcc8f72f32f6ee76b"
 SRCREV_safestring = "db404a9bba3a58d06adfdab4021e7b91265ac0f0"
 PV = "0.1+git${SRCPV}"
 PR = "r0"
 
 SRCREV_FORMAT = "dps"
-SRC_URI = "git://github.com/01org/dps-for-iot.git;name=dps \
+SRC_URI = "git://github.com/wzhen12/dps-for-iot.git;name=dps \
            git://github.com/01org/tinycrypt.git;protocol=https;name=tinycrypt;destsuffix=git/ext/tinycrypt \
            git://github.com/01org/safestringlib.git;protocol=https;name=safestring;destsuffix=git/ext/safestring \
            "
