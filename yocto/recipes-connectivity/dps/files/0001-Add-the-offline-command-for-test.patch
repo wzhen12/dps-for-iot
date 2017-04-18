@@ -1,0 +1,46 @@
+From 288838526d3a4e914004bd1b1a590e7bb8df5be4 Mon Sep 17 00:00:00 2001
+From: Wu Zheng <wu.zheng@intel.com>
+Date: Tue, 18 Apr 2017 10:55:04 +0800
+Subject: [PATCH] Add the offline command for test
+
+Change-Id: I524af8c202c4f036dc6a16c035526172f8e339d5
+---
+ examples/subscriber.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/examples/subscriber.c b/examples/subscriber.c
+index 00773d0..d19bd04 100644
+--- a/examples/subscriber.c
++++ b/examples/subscriber.c
+@@ -62,6 +62,7 @@ static void OnPubMatch(DPS_Subscription* sub, const DPS_Publication* pub, uint8_
+     uint32_t sn = DPS_PublicationGetSequenceNum(pub);
+     size_t i;
+     size_t numTopics;
++    int matched = 0;
+ 
+     if (!quiet) {
+         DPS_PRINT("Pub %s(%d) matches:\n", DPS_UUIDToString(pubId), sn);
+@@ -84,6 +85,9 @@ static void OnPubMatch(DPS_Subscription* sub, const DPS_Publication* pub, uint8_
+         }
+         DPS_PRINT("\n");
+         if (data) {
++            if (strcmp(data, "offline") == 0) {
++                matched = 1;
++            }
+             DPS_PRINT("%.*s\n", (int)len, data);
+         }
+     }
+@@ -97,6 +101,10 @@ static void OnPubMatch(DPS_Subscription* sub, const DPS_Publication* pub, uint8_
+             DPS_PRINT("Failed to ack pub %s\n", DPS_ErrTxt(ret));
+         }
+     }
++
++    if (matched == 1) {
++        exit(0);
++    }
+ }
+ 
+ static int IntArg(char* opt, char*** argp, int* argcp, int* val, int min, int max)
+-- 
+2.7.4
+
