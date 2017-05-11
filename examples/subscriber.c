@@ -62,6 +62,8 @@ static void OnPubMatch(DPS_Subscription* sub, const DPS_Publication* pub, uint8_
     uint32_t sn = DPS_PublicationGetSequenceNum(pub);
     size_t i;
     size_t numTopics;
+    int matched = 0;
+    int topics = 0;
 
     if (!quiet) {
         DPS_PRINT("Pub %s(%d) matches:\n", DPS_UUIDToString(pubId), sn);
@@ -80,10 +82,43 @@ static void OnPubMatch(DPS_Subscription* sub, const DPS_Publication* pub, uint8_
             if (i) {
                 DPS_PRINT(" & ");
             }
+            if (strstr(DPS_SubscriptionGetTopic(sub, i), "270") != NULL) {
+               topics = 1;
+            } else if (strstr(DPS_SubscriptionGetTopic(sub, i), "272") != NULL) {
+               topics = 2;
+            } else if (strstr(DPS_SubscriptionGetTopic(sub, i), "12") != NULL) {
+               topics = 3;
+            } else if (strstr(DPS_SubscriptionGetTopic(sub, i), "6") != NULL) {
+               topics = 4;
+            }
             DPS_PRINT("%s", DPS_SubscriptionGetTopic(sub, i));
         }
         DPS_PRINT("\n");
         if (data) {
+            int ret = 0;
+            if (strcmp(data, "offline") == 0) {
+                matched = 1;
+            } else if (strcmp(data, "lightoff") == 0 && topics == 1) {
+                ret = system("./sensor/joule/lightoff_270");
+            } else if (strcmp(data, "lighton") == 0 && topics == 1) {
+                ret = system("./sensor/joule/lighton_270");
+            } else if (strcmp(data, "lightoff") == 0 && topics == 2) {
+                ret = system("./sensor/joule/lightoff_272");
+            } else if (strcmp(data, "lighton") == 0 && topics == 2) {
+                ret = system("./sensor/joule/lighton_272");
+            } else if (strcmp(data, "lightoff") == 0 && topics == 3) {
+                ret = system("./sensor/galileo/lightoff_12");
+            } else if (strcmp(data, "lighton") == 0 && topics == 3) {
+                ret = system("./sensor/galileo/lighton_12");
+            } else if (strcmp(data, "lightoff") == 0 && topics == 4) {
+                ret = system("./sensor/galileo/lightoff_6");
+            } else if (strcmp(data, "lighton") == 0 && topics == 4) {
+                ret = system("./sensor/galileo/lighton_6");
+            }
+
+            if (ret == -1) {
+                DPS_PRINT("run light on/off error\n");
+            }
             DPS_PRINT("%.*s\n", (int)len, data);
         }
     }
@@ -96,6 +131,10 @@ static void OnPubMatch(DPS_Subscription* sub, const DPS_Publication* pub, uint8_
         if (ret != DPS_OK) {
             DPS_PRINT("Failed to ack pub %s\n", DPS_ErrTxt(ret));
         }
+    }
+
+    if (matched == 1) {
+        exit(0);
     }
 }
 

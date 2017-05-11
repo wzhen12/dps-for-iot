@@ -1,0 +1,21 @@
+#! /bin/sh
+
+echo -n "12" > /sys/class/gpio/export
+sleep 1
+echo -n "out" > /sys/class/gpio/gpio12/direction
+
+echo -n "36" > /sys/class/gpio/export
+sleep 1
+echo -n "out" > /sys/class/gpio/gpio36/direction
+sleep 1
+echo -n "1" > /sys/class/gpio/gpio36/value
+
+echo -n "37" > /sys/class/gpio/export
+sleep 1
+echo -n "out" > /sys/class/gpio/gpio37/direction
+sleep 1
+echo -n "1" > /sys/class/gpio/gpio37/value
+
+echo -n "6" > /sys/class/gpio/export
+sleep 1
+echo -n "out" > /sys/class/gpio/gpio6/direction

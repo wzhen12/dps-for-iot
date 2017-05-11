@@ -15,7 +15,6 @@ SRCREV_FORMAT = "dps"
 SRC_URI = "git://github.com/wzhen12/dps-for-iot.git;name=dps \
            git://github.com/01org/tinycrypt.git;protocol=https;name=tinycrypt;destsuffix=git/ext/tinycrypt \
            git://github.com/01org/safestringlib.git;protocol=https;name=safestring;destsuffix=git/ext/safestring \
-           file://0001-Add-the-offline-command-for-test.patch \
            "
 inherit scons
 
