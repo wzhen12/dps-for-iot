@@ -1,0 +1,62 @@
+#
+#                               TV:40000 -----------------------------------> light:40001                          light4:40008 <------ light8:40009
+#                                ^                                                     ^                             /
+#                               /                                                       \                           /
+#                         curtain:40003 -------> fan:40004 -------> light1:40005 -------> light2:40006 <------ door:40002 <------ light6: 40010
+#                               \                                                    ^                               ^  
+#                                \                                          /        /                                 \  
+#                                               light3:40007                       /                                  light7: 40011
+#                                                  ^                              /
+#                                                  |                             /
+#                                               light10:40012                  /
+#                                               ^           ^               /
+#                                               |           |             /
+#                                         light12:40013   light11:40014
+
+killall subscriber
+
+publisher "light12" -m "offline"
+publisher "light11" -m "offline"
+publisher "light10" -m "offline"
+publisher "light8" -m "offline"
+publisher "light7" -m "offline"
+publisher "light6" -m "offline"
+publisher "light4" -m "offline"
+publisher "light3" -m "offline"
+publisher "light2" -m "offline"
+publisher "light1" -m "offline"
+publisher "light" -m "offline"
+publisher "TV" -m "offline"
+publisher "fan" -m "offline"
+publisher "curtain" -m "offline"
+publisher "door" -m "offline"
+
+subscriber -l 40006 -d "light2" &
+sleep 1
+subscriber -l 40005 -p 40006 -d "light1" &
+sleep 1
+subscriber -l 40001 -p 40006 -d "light" &
+sleep 1
+subscriber -l 40000 -p 40001 -d "TV" &
+sleep 1
+subscriber -l 40004 -p 40005 -d "fan" &
+sleep 1
+subscriber -l 40007 -p 40006 -d "light3" &
+sleep 1
+subscriber -l 40003 -p 40000 -p 40004 -p 40007 -d "curtain" &
+sleep 1
+subscriber -l 40002 -p 40006 -d "door" &
+sleep 1
+subscriber -l 40012 -p 40007 -d "light10" &
+sleep 1
+subscriber -l 40013 -p 40012 -d "light12" &
+sleep 1
+subscriber -l 40014 -p 40012 -p 40006 -d "light11" &
+sleep 1
+subscriber -l 40008 -p 40002 -d "light4" &
+sleep 1
+subscriber -l 40011 -p 40002 -d "light7" &
+sleep 1
+subscriber -l 40010 -p 40002 -d "light6" &
+sleep 1
+subscriber -l 40009 -p 40008 -d "light8" &

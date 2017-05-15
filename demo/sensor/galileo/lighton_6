@@ -1,0 +1,7 @@
+#! /bin/sh
+
+echo -n "1" > /sys/class/gpio/gpio6/value
+sleep 1
+echo -n "0" > /sys/class/gpio/gpio6/value
+sleep 1
+echo -n "1" > /sys/class/gpio/gpio6/value
