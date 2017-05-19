@@ -5,7 +5,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE.md;md5=048191255019d4e1ee70aef53dbbec10"
 
 S = "${WORKDIR}/git"
-SRCREV_dps = "b9abc0da78e740732b394176d4c63e332fad7ffe"
+SRCREV_dps = "e4cd2da644d81475bc30b4cd9ccb403dee2069a3"
 SRCREV_tinycrypt = "e6cffb820b91578d9816fc0bcc8f72f32f6ee76b"
 SRCREV_safestring = "db404a9bba3a58d06adfdab4021e7b91265ac0f0"
 PV = "0.1+git${SRCPV}"
